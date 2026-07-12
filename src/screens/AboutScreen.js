@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   appInfoContainer: {
     alignItems: 'center',
-    marginBottom: spacing.2xl,
+    marginBottom: spacing['2xl'],
   },
   logoContainer: {
     width: 140,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: radius.large,
     overflow: 'hidden',
-    marginBottom: spacing.2xl,
+    marginBottom: spacing['2xl'],
   },
   cardContent: {
     padding: 0,

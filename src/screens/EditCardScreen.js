@@ -318,6 +318,6 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
   },
   bottomSpacer: {
-    height: spacing.3xl,
+    height: spacing['3xl'],
   },
 });

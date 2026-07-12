@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme, typography, radius } from '../../theme';
 
 export const PremiumAvatar = ({
@@ -66,7 +66,7 @@ export const PremiumAvatar = ({
     }
 
     // Default to placeholder
-    return <MaterialIcons name="person" size={getIconSize()} color={colors.textSecondary} />;
+    return <MaterialCommunityIcons name="account-circle" size={getIconSize()} color={colors.textSecondary} />;
   };
 
   return (

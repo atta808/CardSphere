@@ -123,6 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bottomSpacer: {
-    height: spacing.3xl,
+    height: spacing['3xl'],
   },
 });
