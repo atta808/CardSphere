@@ -5,7 +5,9 @@ import { useTheme, typography, spacing, radius } from '../theme';
 import { PremiumHeader } from '../components/common/PremiumHeader';
 import { PremiumButton } from '../components/common/PremiumButton';
 import { BusinessCard } from '../components/card/BusinessCard';
+import { QRCard } from '../components/qr/QRCard';
 import { useProfile } from '../hooks/useProfile';
+import { ROUTES } from '../navigation/routes';
 
 export const PreviewScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -23,6 +25,9 @@ export const PreviewScreen = ({ navigation }) => {
       <View style={[styles.previewBackground, { backgroundColor: colors.surface }]}>
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           <BusinessCard profile={profile} />
+          <View style={styles.qrWrapper}>
+            <QRCard profile={profile} />
+          </View>
         </ScrollView>
       </View>
 
@@ -38,6 +43,7 @@ export const PreviewScreen = ({ navigation }) => {
           variant="primary"
           leftIcon={<MaterialCommunityIcons name="qrcode" size={20} color="#FFFFFF" />}
           style={styles.actionBtn}
+          onPress={() => navigation.navigate(ROUTES.QR_CODE)}
         />
       </View>
     </SafeAreaView>
@@ -54,6 +60,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.xl,
+  },
+  qrWrapper: {
+    marginTop: spacing['2xl'],
+    width: '100%',
+    alignItems: 'center',
   },
   footer: {
     flexDirection: 'row',

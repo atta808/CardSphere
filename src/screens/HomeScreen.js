@@ -10,6 +10,7 @@ import { StatCard } from '../components/common/StatCard';
 import { BusinessCard } from '../components/card/BusinessCard';
 import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
+import { QRPreview } from '../components/qr/QRPreview';
 
 export const HomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -48,6 +49,11 @@ export const HomeScreen = ({ navigation }) => {
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Your Active Card</Text>
           <BusinessCard profile={profile} style={styles.myCardPreview} />
+        </View>
+
+        {/* QR Preview */}
+        <View style={styles.section}>
+          <QRPreview profile={profile} onPress={() => navigation.navigate(ROUTES.QR_CODE)} />
         </View>
 
         {/* Quick Actions */}
