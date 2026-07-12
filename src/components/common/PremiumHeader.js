@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useTheme, typography, spacing } from '../../theme';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from '../../theme';
 
 export const PremiumHeader = ({
   title,
@@ -9,51 +9,56 @@ export const PremiumHeader = ({
   onBack,
   leftAction,
   rightAction,
-  style,
+  showBackButton = false,
 }) => {
   const { colors } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.surface, borderBottomColor: colors.border }, style]}>
-      <View style={styles.leftContainer}>
-        {onBack ? (
-          <TouchableOpacity onPress={onBack} style={styles.backButton} accessibilityLabel="Go back" accessibilityRole="button">
-            <MaterialIcons name="arrow-back" size={24} color={colors.textPrimary} />
-          </TouchableOpacity>
-        ) : leftAction ? (
-          leftAction
-        ) : null}
-      </View>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.surface }]}>
+      <View style={[styles.container, { borderBottomColor: colors.border }]}>
+        {/* Left Section */}
+        <View style={styles.leftContainer}>
+          {showBackButton ? (
+            <TouchableOpacity onPress={onBack} style={styles.iconButton} accessibilityLabel="Go back">
+              <MaterialCommunityIcons name="chevron-left" size={28} color={colors.textPrimary} />
+            </TouchableOpacity>
+          ) : leftAction ? (
+            leftAction
+          ) : null}
+        </View>
 
-      <View style={styles.centerContainer}>
-        {title ? (
-          <Text style={[styles.title, { color: colors.textPrimary, ...typography.title }]} numberOfLines={1}>
+        {/* Center Section */}
+        <View style={styles.centerContainer}>
+          <Text style={[styles.title, { color: colors.textPrimary }]} numberOfLines={1}>
             {title}
           </Text>
-        ) : null}
-        {subtitle ? (
-          <Text style={[styles.subtitle, { color: colors.textSecondary, ...typography.caption }]} numberOfLines={1}>
-            {subtitle}
-          </Text>
-        ) : null}
-      </View>
+          {subtitle && (
+            <Text style={[styles.subtitle, { color: colors.textSecondary }]} numberOfLines={1}>
+              {subtitle}
+            </Text>
+          )}
+        </View>
 
-      <View style={styles.rightContainer}>
-        {rightAction}
+        {/* Right Section */}
+        <View style={styles.rightContainer}>
+          {rightAction ? rightAction : null}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    width: '100%',
+  },
   container: {
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingHorizontal: 8,
     borderBottomWidth: 1,
-    minHeight: 56,
   },
   leftContainer: {
     flex: 1,
@@ -70,13 +75,17 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
-  backButton: {
-    padding: spacing.xs,
+  iconButton: {
+    padding: 8,
   },
   title: {
+    fontSize: 18,
+    fontWeight: '600',
     textAlign: 'center',
   },
   subtitle: {
+    fontSize: 12,
+    marginTop: 2,
     textAlign: 'center',
   },
 });
