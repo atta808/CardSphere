@@ -17,3 +17,7 @@ export * from './PremiumSwitch';
 export * from './PremiumTextArea';
 export * from './SectionTitle';
 export * from './SkeletonLoader';
+export * from './SettingRow';
+export * from './ActionTile';
+export * from './StatCard';
+export * from './SocialButton';
