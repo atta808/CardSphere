@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     letterSpacing: -1,
   },
   footer: {
-    paddingBottom: spacing.2xl,
+    paddingBottom: spacing['2xl'],
     alignItems: 'center',
   },
   branding: {

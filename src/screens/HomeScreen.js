@@ -7,6 +7,7 @@ import { PremiumCard } from '../components/common/PremiumCard';
 import { PremiumButton } from '../components/common/PremiumButton';
 import { ActionTile } from '../components/common/ActionTile';
 import { StatCard } from '../components/common/StatCard';
+import { BusinessCard } from '../components/card/BusinessCard';
 import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
 
@@ -46,36 +47,7 @@ export const HomeScreen = ({ navigation }) => {
         {/* My Card Preview */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Your Active Card</Text>
-          <PremiumCard variant="outlined" style={styles.myCardPreview}>
-            <View style={styles.cardHeader}>
-              <View style={styles.cardInfo}>
-                <Text style={[styles.cardName, { color: colors.textPrimary }]}>{profile?.personal?.fullName || 'Your Name'}</Text>
-                <Text style={[styles.cardRole, { color: colors.textSecondary }]}>{profile?.personal?.jobTitle || 'Your Profession'}</Text>
-                {profile?.personal?.company ? (
-                  <Text style={[styles.cardCompany, { color: colors.primary }]}><MaterialCommunityIcons name="domain" size={14} /> {profile.personal.company}</Text>
-                ) : null}
-              </View>
-              <MaterialCommunityIcons name="qrcode" size={48} color={colors.textPrimary} />
-            </View>
-            <View style={styles.cardActions}>
-              <PremiumButton
-                title="Edit Card"
-                variant="outline"
-                size="small"
-                leftIcon={<MaterialCommunityIcons name="pencil" size={16} color={colors.primary} />}
-                onPress={() => navigation.navigate(ROUTES.EDIT_CARD)}
-                style={styles.actionBtn}
-              />
-              <PremiumButton
-                title="Share"
-                variant="primary"
-                size="small"
-                leftIcon={<MaterialCommunityIcons name="share-variant" size={16} color="#FFFFFF" />}
-                onPress={() => navigation.navigate(ROUTES.QR_CODE)}
-                style={styles.actionBtn}
-              />
-            </View>
-          </PremiumCard>
+          <BusinessCard profile={profile} style={styles.myCardPreview} />
         </View>
 
         {/* Quick Actions */}
@@ -166,35 +138,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   myCardPreview: {
-    padding: spacing.md,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: spacing.lg,
-  },
-  cardInfo: {
-    flex: 1,
-  },
-  cardName: {
-    ...typography.title,
-    marginBottom: spacing.xs,
-  },
-  cardRole: {
-    ...typography.body,
-    marginBottom: spacing.sm,
-  },
-  cardCompany: {
-    ...typography.caption,
-    fontWeight: '600',
-  },
-  cardActions: {
-    flexDirection: 'row',
-    gap: spacing.md,
-  },
-  actionBtn: {
-    flex: 1,
+    marginTop: spacing.md,
   },
   actionGrid: {
     flexDirection: 'row',
@@ -238,6 +182,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bottomSpacer: {
-    height: spacing.3xl,
+    height: spacing['3xl'],
   },
 });

@@ -139,6 +139,6 @@ const styles = StyleSheet.create({
     ...typography.caption,
   },
   bottomSpacer: {
-    height: spacing.3xl,
+    height: spacing['3xl'],
   },
 });

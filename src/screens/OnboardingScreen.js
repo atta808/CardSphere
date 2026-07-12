@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     padding: spacing.xl,
-    paddingBottom: spacing.2xl,
+    paddingBottom: spacing['2xl'],
   },
 });

@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   actionsContainer: {
     width: '100%',
     maxWidth: 320,
-    marginTop: spacing.2xl,
+    marginTop: spacing['2xl'],
     gap: spacing.md,
   },
   actionBtn: {
