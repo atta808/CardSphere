@@ -7,9 +7,11 @@ import { PremiumCard } from '../components/common/PremiumCard';
 import { PremiumButton } from '../components/common/PremiumButton';
 import { SocialButton } from '../components/common/SocialButton';
 import { ROUTES } from '../navigation/routes';
+import { useProfile } from '../hooks/useProfile';
 
 export const MyCardScreen = ({ navigation }) => {
   const { colors } = useTheme();
+  const { profile } = useProfile();
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -36,12 +38,14 @@ export const MyCardScreen = ({ navigation }) => {
 
             {/* Profile Info */}
             <View style={styles.profileInfo}>
-              <Text style={[styles.name, { color: colors.textPrimary }]}>Alex Developer</Text>
-              <Text style={[styles.role, { color: colors.textSecondary }]}>Senior Software Engineer</Text>
-              <View style={styles.companyRow}>
-                <MaterialCommunityIcons name="domain" size={16} color={colors.primary} style={styles.icon} />
-                <Text style={[styles.company, { color: colors.primary }]}>TechNaam Solutions</Text>
-              </View>
+              <Text style={[styles.name, { color: colors.textPrimary }]}>{profile?.personal?.fullName || 'Your Name'}</Text>
+              <Text style={[styles.role, { color: colors.textSecondary }]}>{profile?.personal?.jobTitle || 'Your Profession'}</Text>
+              {profile?.personal?.company ? (
+                <View style={styles.companyRow}>
+                  <MaterialCommunityIcons name="domain" size={16} color={colors.primary} style={styles.icon} />
+                  <Text style={[styles.company, { color: colors.primary }]}>{profile.personal.company}</Text>
+                </View>
+              ) : null}
             </View>
 
             {/* Contact Actions */}
@@ -53,9 +57,9 @@ export const MyCardScreen = ({ navigation }) => {
                 style={styles.mainAction}
               />
               <View style={styles.quickContacts}>
-                <SocialButton icon="phone" color={colors.success} size={48} onPress={() => {}} />
-                <SocialButton icon="email" color={colors.warning} size={48} onPress={() => {}} />
-                <SocialButton icon="web" color={colors.info} size={48} onPress={() => {}} />
+                {profile?.contact?.mobile ? <SocialButton icon="phone" color={colors.success} size={48} onPress={() => {}} /> : null}
+                {profile?.contact?.email ? <SocialButton icon="email" color={colors.warning} size={48} onPress={() => {}} /> : null}
+                {profile?.contact?.website ? <SocialButton icon="web" color={colors.info} size={48} onPress={() => {}} /> : null}
               </View>
             </View>
 
@@ -65,10 +69,11 @@ export const MyCardScreen = ({ navigation }) => {
             <View style={styles.section}>
               <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Connect</Text>
               <View style={styles.socialGrid}>
-                <SocialButton icon="linkedin" color="#0077b5" size={56} onPress={() => {}} style={styles.socialBtn} />
-                <SocialButton icon="twitter" color="#1DA1F2" size={56} onPress={() => {}} style={styles.socialBtn} />
-                <SocialButton icon="github" color="#333" size={56} onPress={() => {}} style={styles.socialBtn} />
-                <SocialButton icon="instagram" color="#E1306C" size={56} onPress={() => {}} style={styles.socialBtn} />
+                {profile?.social?.linkedin ? <SocialButton icon="linkedin" color="#0077b5" size={56} onPress={() => {}} style={styles.socialBtn} /> : null}
+                {profile?.social?.x ? <SocialButton icon="twitter" color="#1DA1F2" size={56} onPress={() => {}} style={styles.socialBtn} /> : null}
+                {profile?.social?.facebook ? <SocialButton icon="facebook" color="#1877F2" size={56} onPress={() => {}} style={styles.socialBtn} /> : null}
+                {profile?.social?.instagram ? <SocialButton icon="instagram" color="#E1306C" size={56} onPress={() => {}} style={styles.socialBtn} /> : null}
+                {profile?.social?.youtube ? <SocialButton icon="youtube" color="#FF0000" size={56} onPress={() => {}} style={styles.socialBtn} /> : null}
               </View>
             </View>
 

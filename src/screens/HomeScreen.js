@@ -8,9 +8,17 @@ import { PremiumButton } from '../components/common/PremiumButton';
 import { ActionTile } from '../components/common/ActionTile';
 import { StatCard } from '../components/common/StatCard';
 import { ROUTES } from '../navigation/routes';
+import { useProfile } from '../hooks/useProfile';
 
 export const HomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
+  const { profile, completionPercentage } = useProfile();
+
+  const getFormattedDate = (dateString) => {
+    if (!dateString) return 'Never';
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -24,11 +32,14 @@ export const HomeScreen = ({ navigation }) => {
           contentStyle={styles.welcomeContent}
         >
           <View style={styles.welcomeTextContainer}>
-            <Text style={[styles.welcomeGreeting, { color: colors.textSecondary }]}>Good morning,</Text>
-            <Text style={[styles.welcomeName, { color: colors.textPrimary }]}>Alex Developer</Text>
+            <Text style={[styles.welcomeGreeting, { color: colors.textSecondary }]}>Welcome,</Text>
+            <Text style={[styles.welcomeName, { color: colors.textPrimary }]}>{profile?.personal?.fullName || 'User'}</Text>
           </View>
-          <View style={[styles.avatarPlaceholder, { backgroundColor: colors.surface }]}>
-            <MaterialCommunityIcons name="account-circle" size={48} color={colors.primary} />
+          <View style={styles.completionContainer}>
+            <View style={[styles.avatarPlaceholder, { backgroundColor: colors.surface }]}>
+              <Text style={[styles.completionText, { color: colors.primary }]}>{completionPercentage}%</Text>
+            </View>
+            <Text style={[styles.completionLabel, { color: colors.textSecondary }]}>Completed</Text>
           </View>
         </PremiumCard>
 
@@ -38,9 +49,11 @@ export const HomeScreen = ({ navigation }) => {
           <PremiumCard variant="outlined" style={styles.myCardPreview}>
             <View style={styles.cardHeader}>
               <View style={styles.cardInfo}>
-                <Text style={[styles.cardName, { color: colors.textPrimary }]}>Alex Developer</Text>
-                <Text style={[styles.cardRole, { color: colors.textSecondary }]}>Senior Software Engineer</Text>
-                <Text style={[styles.cardCompany, { color: colors.primary }]}><MaterialCommunityIcons name="domain" size={14} /> TechNaam Solutions</Text>
+                <Text style={[styles.cardName, { color: colors.textPrimary }]}>{profile?.personal?.fullName || 'Your Name'}</Text>
+                <Text style={[styles.cardRole, { color: colors.textSecondary }]}>{profile?.personal?.jobTitle || 'Your Profession'}</Text>
+                {profile?.personal?.company ? (
+                  <Text style={[styles.cardCompany, { color: colors.primary }]}><MaterialCommunityIcons name="domain" size={14} /> {profile.personal.company}</Text>
+                ) : null}
               </View>
               <MaterialCommunityIcons name="qrcode" size={48} color={colors.textPrimary} />
             </View>
@@ -89,22 +102,12 @@ export const HomeScreen = ({ navigation }) => {
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Recent Activity</Text>
           <PremiumCard variant="flat" style={styles.activityCard}>
             <View style={styles.activityRow}>
-              <View style={[styles.activityIcon, { backgroundColor: `${colors.primary}20` }]}>
-                <MaterialCommunityIcons name="account-plus" size={20} color={colors.primary} />
-              </View>
-              <View style={styles.activityText}>
-                <Text style={[styles.activityTitle, { color: colors.textPrimary }]}>New connection saved</Text>
-                <Text style={[styles.activityTime, { color: colors.textSecondary }]}>2 hours ago</Text>
-              </View>
-            </View>
-            <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <View style={styles.activityRow}>
               <View style={[styles.activityIcon, { backgroundColor: `${colors.secondary}20` }]}>
                 <MaterialCommunityIcons name="card-account-details" size={20} color={colors.secondary} />
               </View>
               <View style={styles.activityText}>
-                <Text style={[styles.activityTitle, { color: colors.textPrimary }]}>Card updated</Text>
-                <Text style={[styles.activityTime, { color: colors.textSecondary }]}>Yesterday</Text>
+                <Text style={[styles.activityTitle, { color: colors.textPrimary }]}>Profile last updated</Text>
+                <Text style={[styles.activityTime, { color: colors.textSecondary }]}>{getFormattedDate(profile?.meta?.updatedDate)}</Text>
               </View>
             </View>
           </PremiumCard>
@@ -144,12 +147,23 @@ const styles = StyleSheet.create({
   welcomeName: {
     ...typography.heading,
   },
+  completionContainer: {
+    alignItems: 'center',
+  },
   avatarPlaceholder: {
     width: 56,
     height: 56,
     borderRadius: radius.circle,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  completionText: {
+    ...typography.title,
+    fontWeight: '700',
+  },
+  completionLabel: {
+    ...typography.caption,
+    marginTop: 4,
   },
   myCardPreview: {
     padding: spacing.md,
