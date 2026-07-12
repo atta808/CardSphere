@@ -1,16 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ThemeProvider, useTheme } from './src/theme';
+import { AppNavigator } from './src/navigation';
 
 const MainApp = () => {
   const { colors, isDarkMode } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={{ color: colors.textPrimary }}>
-        CardSphere Theme Engine Active
-      </Text>
       <StatusBar style={isDarkMode ? 'light' : 'dark'} />
+      <AppNavigator />
     </View>
   );
 };
@@ -26,7 +25,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
