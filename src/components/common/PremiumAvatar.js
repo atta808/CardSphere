@@ -8,12 +8,14 @@ export const PremiumAvatar = ({
   source,
   initials,
   size = 'medium', // small, medium, large, xl
+  customSize, // overrides size with explicit pixel value
   style,
 }) => {
   const { colors } = useTheme();
   const [imageError, setImageError] = useState(false);
 
   const getDimensions = () => {
+    if (customSize) return customSize;
     switch (size) {
       case 'small': return 32;
       case 'large': return 64;

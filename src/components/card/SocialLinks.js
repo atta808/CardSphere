@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { useTheme, spacing } from '../../theme';
 import { SocialButton } from '../common/SocialButton';
 
-export const SocialLinks = ({ profile }) => {
+export const SocialLinks = ({ profile, templateConfig }) => {
   const { colors } = useTheme();
 
   const hasSocial = profile?.social?.linkedin || profile?.social?.x || profile?.social?.facebook || profile?.social?.instagram || profile?.social?.youtube;
@@ -12,8 +12,10 @@ export const SocialLinks = ({ profile }) => {
     return null;
   }
 
+  const { layout } = templateConfig || {};
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingVertical: spacing[layout?.sectionSpacing] || spacing.md }]}>
       <View style={styles.socialGrid}>
         {profile?.social?.linkedin ? <SocialButton icon="linkedin" color="#0077b5" size={48} onPress={() => {}} style={styles.socialBtn} /> : null}
         {profile?.social?.x ? <SocialButton icon="twitter" color="#1DA1F2" size={48} onPress={() => {}} style={styles.socialBtn} /> : null}
@@ -28,7 +30,6 @@ export const SocialLinks = ({ profile }) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
   },
   socialGrid: {
     flexDirection: 'row',

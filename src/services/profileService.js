@@ -47,6 +47,8 @@ export const profileService = {
         theme: 'system',
         template: 'minimal',
         accentColor: '#0A84FF',
+        cardRadius: 'medium',
+        cardElevation: 'medium',
       },
       meta: {
         createdDate: now,
