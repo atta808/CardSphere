@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { useTheme, spacing, typography } from '../../theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const ContactButtons = ({ profile }) => {
+export const ContactButtons = ({ profile, templateConfig, accentColor }) => {
   const { colors } = useTheme();
 
   const hasContact = profile?.contact?.mobile || profile?.contact?.email || profile?.contact?.website || profile?.contact?.address;
@@ -12,23 +12,25 @@ export const ContactButtons = ({ profile }) => {
     return null;
   }
 
+  const { layout, typography: typoConfig } = templateConfig;
+
   const renderContactItem = (icon, value, title) => {
     if (!value) return null;
     return (
       <View style={styles.contactItem}>
-        <View style={[styles.iconContainer, { backgroundColor: `${colors.primary}15` }]}>
-          <MaterialCommunityIcons name={icon} size={20} color={colors.primary} />
+        <View style={[styles.iconContainer, { backgroundColor: `${accentColor}15` }]}>
+          <MaterialCommunityIcons name={icon} size={20} color={accentColor} />
         </View>
         <View style={styles.textContainer}>
           <Text style={[styles.contactTitle, { color: colors.textSecondary }]}>{title}</Text>
-          <Text style={[styles.contactValue, { color: colors.textPrimary }]}>{value}</Text>
+          <Text style={[styles.contactValue, typography[typoConfig.bodyVariant], { color: colors.textPrimary }]}>{value}</Text>
         </View>
       </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingVertical: spacing[layout.sectionSpacing] || spacing.md }]}>
       {renderContactItem('phone', profile?.contact?.mobile, 'Mobile')}
       {renderContactItem('email', profile?.contact?.email, 'Email')}
       {renderContactItem('web', profile?.contact?.website, 'Website')}
@@ -40,7 +42,6 @@ export const ContactButtons = ({ profile }) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
     gap: spacing.md,
   },
   contactItem: {
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   contactValue: {
-    ...typography.body,
     fontWeight: '500',
   },
 });

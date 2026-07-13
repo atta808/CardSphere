@@ -4,23 +4,26 @@ import { useTheme, spacing } from '../../theme';
 import { PremiumButton } from '../common/PremiumButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const ActionButtons = () => {
+export const ActionButtons = ({ templateConfig, accentColor }) => {
   const { colors } = useTheme();
 
+  const { layout } = templateConfig || {};
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingVertical: spacing[layout?.sectionSpacing] || spacing.md }]}>
       <PremiumButton
         title="Save Contact"
         variant="primary"
         leftIcon={<MaterialCommunityIcons name="account-plus" size={20} color="#FFFFFF" />}
-        style={styles.actionBtn}
+        style={[styles.actionBtn, { backgroundColor: accentColor }]}
         disabled={true}
       />
       <PremiumButton
         title="Share"
         variant="outline"
-        leftIcon={<MaterialCommunityIcons name="share-variant" size={20} color={colors.primary} />}
-        style={styles.actionBtn}
+        leftIcon={<MaterialCommunityIcons name="share-variant" size={20} color={accentColor} />}
+        style={[styles.actionBtn, { borderColor: accentColor }]}
+        textStyle={{ color: accentColor }}
         disabled={true}
       />
     </View>
@@ -30,7 +33,6 @@ export const ActionButtons = () => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
     gap: spacing.md,
   },
   actionBtn: {
