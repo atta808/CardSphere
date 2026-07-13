@@ -4,7 +4,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme, typography, spacing, radius } from '../theme';
 import { PremiumHeader } from '../components/common/PremiumHeader';
 import { PremiumCard } from '../components/common/PremiumCard';
-import { PremiumButton } from '../components/common/PremiumButton';
 import { ActionTile } from '../components/common/ActionTile';
 import { StatCard } from '../components/common/StatCard';
 import { BusinessCard } from '../components/card/BusinessCard';
@@ -60,9 +59,9 @@ export const HomeScreen = ({ navigation }) => {
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Quick Actions</Text>
           <View style={styles.actionGrid}>
-            <ActionTile icon="qrcode-scan" title="Scan QR" color={colors.primary} onPress={() => {}} />
-            <ActionTile icon="view-grid" title="Templates" color={colors.secondary} onPress={() => navigation.navigate(ROUTES.TEMPLATES)} />
-            <ActionTile icon="chart-bar" title="Analytics" color={colors.warning} onPress={() => {}} />
+            <ActionTile icon="export" title="Export Card" color={colors.primary} onPress={() => navigation.navigate(ROUTES.PREVIEW)} />
+            <ActionTile icon="qrcode-scan" title="Scan QR" color={colors.secondary} onPress={() => {}} />
+            <ActionTile icon="view-grid" title="Templates" color={colors.warning} onPress={() => navigation.navigate(ROUTES.TEMPLATES)} />
           </View>
         </View>
 

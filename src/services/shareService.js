@@ -1,6 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
-import * as MediaLibrary from 'expo-media-library';
+import { Platform } from 'react-native';
 
 export const shareService = {
   /**
@@ -14,6 +14,13 @@ export const shareService = {
       if (!uri) {
         return { success: false, message: 'Invalid image URI.' };
       }
+
+      if (Platform.OS === 'web') {
+         return { success: false, message: 'Saving to gallery is not supported on web.' };
+      }
+
+      // Dynamically import MediaLibrary to avoid native module crash on web where it's missing entirely sometimes
+      const MediaLibrary = require('expo-media-library');
 
       // Request permissions
       const { status } = await MediaLibrary.requestPermissionsAsync();
