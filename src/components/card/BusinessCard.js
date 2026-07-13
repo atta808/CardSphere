@@ -2,14 +2,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BusinessCardFront } from './BusinessCardFront';
 
-export const BusinessCard = ({ profile, style }) => {
+export const BusinessCard = React.memo(({ profile, style }) => {
   // For Phase 6, we only render the front of the card.
   return (
     <View style={[styles.container, style]}>
       <BusinessCardFront profile={profile} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

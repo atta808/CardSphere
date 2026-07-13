@@ -12,7 +12,7 @@ export const profileStorage = {
       const jsonValue = JSON.stringify(profile);
       await AsyncStorage.setItem(STORAGE_KEYS.PROFILE, jsonValue);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   },
@@ -25,7 +25,7 @@ export const profileStorage = {
     try {
       const jsonValue = await AsyncStorage.getItem(STORAGE_KEYS.PROFILE);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (error) {
+    } catch {
       return null;
     }
   },
@@ -38,7 +38,7 @@ export const profileStorage = {
     try {
       await AsyncStorage.removeItem(STORAGE_KEYS.PROFILE);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   }

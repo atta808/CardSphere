@@ -1,5 +1,5 @@
 import { elevation } from './elevation';
-import { Platform } from 'react-native';
+
 
 const createShadow = (elevationValue) => {
   if (elevationValue === 0) {

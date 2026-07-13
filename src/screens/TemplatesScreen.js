@@ -16,7 +16,7 @@ const TEMPLATE_ICONS = {
   elegant: { icon: 'diamond-stone', color: '#009688' },
 };
 
-export const TemplatesScreen = ({ navigation }) => {
+export const TemplatesScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
   const { profile, saveProfile, updateProfile } = useProfile();
 
@@ -139,7 +139,7 @@ export const TemplatesScreen = ({ navigation }) => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

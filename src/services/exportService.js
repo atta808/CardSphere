@@ -14,7 +14,7 @@ export const exportService = {
     try {
       const uri = await ref.current.capture();
       return uri;
-    } catch (error) {
+    } catch {
       throw new Error(`Failed to capture component: ${error.message}`);
     }
   },
@@ -30,7 +30,7 @@ export const exportService = {
       const fileUri = `${FileSystem.documentDirectory}${filename}`;
       await FileSystem.writeAsStringAsync(fileUri, content, { encoding: FileSystem.EncodingType.UTF8 });
       return fileUri;
-    } catch (error) {
+    } catch {
       throw new Error(`Failed to save file: ${error.message}`);
     }
   },
@@ -46,7 +46,7 @@ export const exportService = {
       const filename = `contact_${Date.now()}.vcf`;
       const uri = await exportService.saveStringToFile(vCardContent, filename);
       return uri;
-    } catch (error) {
+    } catch {
       throw new Error(`Failed to export vCard: ${error.message}`);
     }
   },
@@ -60,7 +60,7 @@ export const exportService = {
       if (uri) {
         try {
           await FileSystem.deleteAsync(uri, { idempotent: true });
-        } catch (error) {
+        } catch {
           // Silent catch for cleanup failures
         }
       }

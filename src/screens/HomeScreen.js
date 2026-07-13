@@ -11,15 +11,15 @@ import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
 import { QRPreview } from '../components/qr/QRPreview';
 
-export const HomeScreen = ({ navigation }) => {
+export const HomeScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
   const { profile, completionPercentage } = useProfile();
 
-  const getFormattedDate = (dateString) => {
+  const getFormattedDate = React.useCallback((dateString) => {
     if (!dateString) return 'Never';
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-  };
+  }, []);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -94,7 +94,7 @@ export const HomeScreen = ({ navigation }) => {
       </ScrollView>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

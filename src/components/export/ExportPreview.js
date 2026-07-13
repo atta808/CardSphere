@@ -5,7 +5,7 @@ import { BusinessCard } from '../card/BusinessCard';
 import { QRCard } from '../qr/QRCard';
 import { spacing } from '../../theme';
 
-export const ExportPreview = ({ profile, businessCardRef, qrCardRef }) => {
+export const ExportPreview = React.memo(({ profile, businessCardRef, qrCardRef }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
       {/* We need ViewShot wrappers around the components, or we can use the refs directly if the components support it.
@@ -22,7 +22,7 @@ export const ExportPreview = ({ profile, businessCardRef, qrCardRef }) => {
       </View>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   scrollContent: {

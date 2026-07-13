@@ -34,7 +34,7 @@ export const QRCodeScreen = ({ navigation }) => {
       if (!result.success) {
         setMessage(result.message);
       }
-    } catch (error) {
+    } catch {
       setMessage('Failed to capture QR code for sharing.');
     } finally {
       setIsSharing(false);
@@ -49,7 +49,7 @@ export const QRCodeScreen = ({ navigation }) => {
       const uri = await captureQRCard();
       const result = await shareService.saveToGallery(uri);
       setMessage(result.message);
-    } catch (error) {
+    } catch {
       setMessage('Failed to capture QR code for saving.');
     } finally {
       setIsSaving(false);

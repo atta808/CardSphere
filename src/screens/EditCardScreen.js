@@ -242,18 +242,6 @@ export const EditCardScreen = ({ navigation }) => {
           />
         </PremiumCard>
 
-        {/* Theme Selection Placeholder */}
-        <PremiumCard variant="elevated" style={styles.sectionCard}>
-          <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Card Theme</Text>
-          <View style={styles.themeOptions}>
-            <View style={[styles.themeCircle, { backgroundColor: colors.primary, borderColor: colors.primary }]} />
-            <View style={[styles.themeCircle, { backgroundColor: colors.secondary, borderColor: 'transparent' }]} />
-            <View style={[styles.themeCircle, { backgroundColor: colors.success, borderColor: 'transparent' }]} />
-            <View style={[styles.themeCircle, { backgroundColor: colors.warning, borderColor: 'transparent' }]} />
-            <View style={[styles.themeCircle, { backgroundColor: colors.info, borderColor: 'transparent' }]} />
-          </View>
-        </PremiumCard>
-
         <View style={styles.saveContainer}>
           <PremiumButton
             title={isSaving ? "Saving..." : "Save Changes"}

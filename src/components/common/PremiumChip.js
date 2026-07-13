@@ -35,6 +35,9 @@ export const PremiumChip = ({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
+      accessibilityRole="button"
+      accessibilityState={{ selected, disabled }}
+      accessibilityLabel={label}
       activeOpacity={0.7}
       style={[
         styles.container,
