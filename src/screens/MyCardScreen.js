@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTheme, typography, spacing, radius } from '../theme';
+import { useTheme, spacing } from '../theme';
 import { PremiumHeader } from '../components/common/PremiumHeader';
 import { PremiumButton } from '../components/common/PremiumButton';
 import { BusinessCard } from '../components/card/BusinessCard';
@@ -40,9 +40,9 @@ export const MyCardScreen = ({ navigation }) => {
             style={styles.shareButton}
           />
           <PremiumButton
-            title="Preview Full Screen"
+            title="Export"
             variant="ghost"
-            leftIcon={<MaterialCommunityIcons name="fullscreen" size={20} color={colors.primary} />}
+            leftIcon={<MaterialCommunityIcons name="export" size={20} color={colors.primary} />}
             onPress={() => navigation.navigate(ROUTES.PREVIEW)}
             style={styles.shareButton}
           />
