@@ -1,12 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme, typography, spacing, radius } from '../theme';
 import { PremiumButton } from '../components/common/PremiumButton';
 import { ROUTES } from '../navigation/routes';
+import { STORAGE_KEYS } from '../storage/storageKeys';
 
 export const OnboardingScreen = ({ navigation }) => {
   const { colors } = useTheme();
+
+  const finishOnboarding = async () => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEYS.ONBOARDING, 'true');
+    } catch (error) {
+      if (__DEV__) {
+        console.error('Failed to save onboarding status:', error);
+      }
+    } finally {
+      navigation.replace(ROUTES.MAIN_TABS);
+    }
+  };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
@@ -15,7 +30,7 @@ export const OnboardingScreen = ({ navigation }) => {
           title="Skip"
           variant="ghost"
           size="small"
-          onPress={() => navigation.replace(ROUTES.MAIN_TABS)}
+          onPress={finishOnboarding}
         />
       </View>
 
@@ -39,7 +54,7 @@ export const OnboardingScreen = ({ navigation }) => {
       <View style={styles.footer}>
         <PremiumButton
           title="Get Started"
-          onPress={() => navigation.replace(ROUTES.MAIN_TABS)}
+          onPress={finishOnboarding}
           fullWidth
           rightIcon={<MaterialCommunityIcons name="arrow-right" size={20} color="#FFFFFF" />}
         />
