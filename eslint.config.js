@@ -1,0 +1,1 @@
+module.exports = [{ plugins: { react: require('eslint-plugin-react') }, languageOptions: { parserOptions: { ecmaVersion: 2022, ecmaFeatures: { jsx: true } } }, rules: { 'no-unused-vars': ['error', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }], 'react/jsx-uses-react': 'error', 'react/jsx-uses-vars': 'error', 'no-empty': 'off' } }];
