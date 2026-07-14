@@ -41,7 +41,7 @@ export const shareService = {
         return { success: false, message: 'Failed to save QR Code to gallery.' };
       }
 
-    } catch (error) {
+    } catch {
       return { success: false, message: 'An unexpected error occurred while saving.' };
     }
   },
@@ -72,12 +72,12 @@ export const shareService = {
       });
 
       return { success: true, message: 'Shared successfully.' };
-    } catch (error) {
+    } catch {
       return { success: false, message: 'An unexpected error occurred while sharing.' };
     } finally {
       try {
         await FileSystem.deleteAsync(uri, { idempotent: true });
-      } catch (e) {
+      } catch {
         // Fallback catch if delete fails
       }
     }

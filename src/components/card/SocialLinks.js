@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, spacing } from '../../theme';
+import { spacing } from '../../theme';
 import { SocialButton } from '../common/SocialButton';
 
 export const SocialLinks = ({ profile, templateConfig }) => {
-  const { colors } = useTheme();
+
 
   const hasSocial = profile?.social?.linkedin || profile?.social?.x || profile?.social?.facebook || profile?.social?.instagram || profile?.social?.youtube;
 

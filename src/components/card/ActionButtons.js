@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, spacing } from '../../theme';
+import { spacing } from '../../theme';
 import { PremiumButton } from '../common/PremiumButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const ActionButtons = ({ templateConfig, accentColor }) => {
-  const { colors } = useTheme();
+
 
   const { layout } = templateConfig || {};
 

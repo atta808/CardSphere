@@ -6,7 +6,7 @@ import { ExportPreview } from '../components/export/ExportPreview';
 import { ExportActions } from '../components/export/ExportActions';
 import { useProfile } from '../hooks/useProfile';
 
-export const PreviewScreen = ({ navigation }) => {
+export const PreviewScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
   const { profile } = useProfile();
 
@@ -36,7 +36,7 @@ export const PreviewScreen = ({ navigation }) => {
       />
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

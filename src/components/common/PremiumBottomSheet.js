@@ -57,7 +57,7 @@ export const PremiumBottomSheet = ({
   if (!modalVisible) return null;
 
   return (
-    <Modal visible={modalVisible} transparent animationType="none" onRequestClose={onClose}>
+    <Modal visible={modalVisible} transparent animationType="none" onRequestClose={onClose} accessibilityViewIsModal={true}>
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>

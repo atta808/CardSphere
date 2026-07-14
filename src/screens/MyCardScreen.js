@@ -9,7 +9,7 @@ import { QRPreview } from '../components/qr/QRPreview';
 import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
 
-export const MyCardScreen = ({ navigation }) => {
+export const MyCardScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
   const { profile } = useProfile();
 
@@ -52,7 +52,7 @@ export const MyCardScreen = ({ navigation }) => {
       </ScrollView>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

@@ -28,7 +28,7 @@ export const ThemeProvider = ({ children }) => {
           setThemePreference(storedTheme);
         }
       } catch (error) {
-        console.error('Failed to load theme preference:', error);
+        if(__DEV__) console.error('Failed to load theme preference:', error);
       } finally {
         setIsReady(true);
       }
@@ -42,7 +42,7 @@ export const ThemeProvider = ({ children }) => {
       await AsyncStorage.setItem(THEME_STORAGE_KEY, newTheme);
       setThemePreference(newTheme);
     } catch (error) {
-      console.error('Failed to save theme preference:', error);
+      if(__DEV__) console.error('Failed to save theme preference:', error);
     }
   };
 
