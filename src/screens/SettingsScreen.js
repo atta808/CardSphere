@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, SafeAreaView, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme, typography, spacing, radius } from '../theme';
 import { PremiumHeader } from '../components/common/PremiumHeader';
 import { PremiumCard } from '../components/common/PremiumCard';
