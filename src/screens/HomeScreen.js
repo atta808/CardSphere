@@ -10,10 +10,16 @@ import { BusinessCard } from '../components/card/BusinessCard';
 import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
 import { QRPreview } from '../components/qr/QRPreview';
+import { analyticsService } from '../services/analyticsService';
 
 export const HomeScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
   const { profile, completionPercentage } = useProfile();
+  const [stats, setStats] = React.useState({ shares: 0, exports: 0, contactExports: 0 });
+
+  React.useEffect(() => {
+    analyticsService.getStats().then(setStats);
+  }, []);
 
   const getFormattedDate = React.useCallback((dateString) => {
     if (!dateString) return 'Never';
@@ -69,8 +75,8 @@ export const HomeScreen = React.memo(({ navigation }) => {
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Performance</Text>
           <View style={styles.statsRow}>
-            <StatCard icon="eye" label="Views" value="1,248" trend="up" trendValue="+12%" />
-            <StatCard icon="share-variant" label="Shares" value="342" trend="up" trendValue="+5%" />
+            <StatCard icon="eye" label="Views" value="—" />
+            <StatCard icon="share-variant" label="Shares" value={String(stats.shares)} />
           </View>
         </View>
 
