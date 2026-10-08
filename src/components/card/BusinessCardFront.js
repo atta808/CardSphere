@@ -8,7 +8,7 @@ import { SocialLinks } from './SocialLinks';
 import { ActionButtons } from './ActionButtons';
 import { appearanceService } from '../../services/appearanceService';
 
-export const BusinessCardFront = React.memo(({ profile }) => {
+export const BusinessCardFront = React.memo(({ profile, onSaveContact, onShare }) => {
   const { colors } = useTheme();
 
   const templateConfig = useMemo(() => {
@@ -93,7 +93,7 @@ export const BusinessCardFront = React.memo(({ profile }) => {
 
         <ContactButtons profile={profile} templateConfig={templateConfig} accentColor={accentColor} />
         <SocialLinks profile={profile} templateConfig={templateConfig} accentColor={accentColor} />
-        <ActionButtons templateConfig={templateConfig} accentColor={accentColor} />
+        <ActionButtons\n          templateConfig={templateConfig}\n          accentColor={accentColor}\n          onSaveContact={onSaveContact}\n          onShare={onShare}\n        />
       </ScrollView>
     </Animated.View>
   );
