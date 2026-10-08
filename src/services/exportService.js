@@ -11,11 +11,12 @@ export const exportService = {
     if (!ref || !ref.current) {
       throw new Error('Invalid component ref provided for capture.');
     }
+
     try {
-      const uri = await ref.current.capture();
-      return uri;
-    } catch {
-      throw new Error(`Failed to capture component: ${error.message}`);
+      return await ref.current.capture();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to capture component: ${message}`);
     }
   },
 
@@ -28,10 +29,13 @@ export const exportService = {
   saveStringToFile: async (content, filename) => {
     try {
       const fileUri = `${FileSystem.documentDirectory}${filename}`;
-      await FileSystem.writeAsStringAsync(fileUri, content, { encoding: FileSystem.EncodingType.UTF8 });
+      await FileSystem.writeAsStringAsync(fileUri, content, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
       return fileUri;
-    } catch {
-      throw new Error(`Failed to save file: ${error.message}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to save file: ${message}`);
     }
   },
 
@@ -44,10 +48,10 @@ export const exportService = {
     try {
       const vCardContent = contactService.generateVCard(profile);
       const filename = `contact_${Date.now()}.vcf`;
-      const uri = await exportService.saveStringToFile(vCardContent, filename);
-      return uri;
-    } catch {
-      throw new Error(`Failed to export vCard: ${error.message}`);
+      return await exportService.saveStringToFile(vCardContent, filename);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to export vCard: ${message}`);
     }
   },
 
@@ -56,14 +60,20 @@ export const exportService = {
    * @param {string[]} uris - Array of local URIs to delete
    */
   cleanupFiles: async (uris) => {
+    if (!Array.isArray(uris)) {
+      return;
+    }
+
     for (const uri of uris) {
-      if (uri) {
-        try {
-          await FileSystem.deleteAsync(uri, { idempotent: true });
-        } catch {
-          // Silent catch for cleanup failures
-        }
+      if (!uri) {
+        continue;
+      }
+
+      try {
+        await FileSystem.deleteAsync(uri, { idempotent: true });
+      } catch {
+        // Cleanup is best-effort and must not mask the original operation error.
       }
     }
-  }
+  },
 };
