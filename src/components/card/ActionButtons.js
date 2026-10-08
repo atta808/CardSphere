@@ -4,27 +4,36 @@ import { spacing } from '../../theme';
 import { PremiumButton } from '../common/PremiumButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const ActionButtons = ({ templateConfig, accentColor }) => {
-
-
+export const ActionButtons = ({
+  templateConfig,
+  accentColor,
+  onSaveContact,
+  onShare,
+  isSavingContact = false,
+  isSharing = false,
+}) => {
   const { layout } = templateConfig || {};
 
   return (
     <View style={[styles.container, { paddingVertical: spacing[layout?.sectionSpacing] || spacing.md }]}>
       <PremiumButton
-        title="Save Contact"
+        title={isSavingContact ? 'Preparing Contact…' : 'Save Contact'}
         variant="primary"
         leftIcon={<MaterialCommunityIcons name="account-plus" size={20} color="#FFFFFF" />}
         style={[styles.actionBtn, { backgroundColor: accentColor }]}
-        disabled={true}
+        onPress={onSaveContact}
+        state={isSavingContact ? 'loading' : 'normal'}
+        accessibilityLabel="Save contact"
       />
       <PremiumButton
-        title="Share"
+        title={isSharing ? 'Preparing…' : 'Share'}
         variant="outline"
         leftIcon={<MaterialCommunityIcons name="share-variant" size={20} color={accentColor} />}
         style={[styles.actionBtn, { borderColor: accentColor }]}
         textStyle={{ color: accentColor }}
-        disabled={true}
+        onPress={onShare}
+        state={isSharing ? 'loading' : 'normal'}
+        accessibilityLabel="Share business card"
       />
     </View>
   );
