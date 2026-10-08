@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme, spacing } from '../theme';
 import { PremiumHeader } from '../components/common/PremiumHeader';
@@ -8,10 +8,67 @@ import { BusinessCard } from '../components/card/BusinessCard';
 import { QRPreview } from '../components/qr/QRPreview';
 import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
+import { exportService } from '../services/exportService';
+import { shareService } from '../services/shareService';
 
 export const MyCardScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
   const { profile } = useProfile();
+  const businessCardRef = useRef(null);
+  const [isSavingContact, setIsSavingContact] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+
+  const handleSaveContact = useCallback(async () => {
+    if (!profile || isSavingContact) return;
+
+    setIsSavingContact(true);
+
+    try {
+      const uri = await exportService.exportVCard(profile);
+      const result = await shareService.shareFile(uri, {
+        dialogTitle: 'Save Contact',
+        mimeType: 'text/vcard',
+        UTI: 'public.vcard',
+      });
+
+      if (!result.success) {
+        Alert.alert('Save Contact', result.message);
+      }
+    } catch (error) {
+      Alert.alert(
+        'Save Contact',
+        error instanceof Error ? error.message : 'Unable to prepare the contact file.'
+      );
+    } finally {
+      setIsSavingContact(false);
+    }
+  }, [profile, isSavingContact]);
+
+  const handleShare = useCallback(async () => {
+    if (!businessCardRef.current || isSharing) return;
+
+    setIsSharing(true);
+
+    try {
+      const uri = await exportService.captureComponent(businessCardRef);
+      const result = await shareService.shareFile(uri, {
+        dialogTitle: 'Share Card',
+        mimeType: 'image/png',
+        UTI: 'public.png',
+      });
+
+      if (!result.success) {
+        Alert.alert('Share Card', result.message);
+      }
+    } catch (error) {
+      Alert.alert(
+        'Share Card',
+        error instanceof Error ? error.message : 'Unable to prepare the card image.'
+      );
+    } finally {
+      setIsSharing(false);
+    }
+  }, [isSharing]);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -22,9 +79,13 @@ export const MyCardScreen = React.memo(({ navigation }) => {
         showBack={false}
       />
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-
         <View style={styles.cardContainer}>
-          <BusinessCard profile={profile} />
+          <BusinessCard
+            ref={businessCardRef}
+            profile={profile}
+            onSaveContact={handleSaveContact}
+            onShare={handleShare}
+          />
         </View>
 
         <View style={styles.qrContainer}>
