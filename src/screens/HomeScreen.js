@@ -60,7 +60,7 @@ export const HomeScreen = React.memo(({ navigation }) => {
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Quick Actions</Text>
           <View style={styles.actionGrid}>
             <ActionTile icon="export" title="Export Card" color={colors.primary} onPress={() => navigation.navigate(ROUTES.PREVIEW)} />
-            <ActionTile icon="qrcode-scan" title="Scan QR" color={colors.secondary} onPress={() => {}} />
+            <ActionTile icon="qrcode" title="QR Code" color={colors.secondary} onPress={() => navigation.navigate(ROUTES.QR_CODE)} />
             <ActionTile icon="view-grid" title="Templates" color={colors.warning} onPress={() => navigation.navigate(ROUTES.TEMPLATES)} />
           </View>
         </View>
