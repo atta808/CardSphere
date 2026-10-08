@@ -10,6 +10,7 @@ import { ROUTES } from '../navigation/routes';
 import { useProfile } from '../hooks/useProfile';
 import { exportService } from '../services/exportService';
 import { shareService } from '../services/shareService';
+import { analyticsService } from '../services/analyticsService';
 
 export const MyCardScreen = React.memo(({ navigation }) => {
   const { colors } = useTheme();
@@ -33,6 +34,8 @@ export const MyCardScreen = React.memo(({ navigation }) => {
 
       if (!result.success) {
         Alert.alert('Save Contact', result.message);
+      } else {
+        await analyticsService.record('contact_export');
       }
     } catch (error) {
       Alert.alert(
@@ -59,6 +62,8 @@ export const MyCardScreen = React.memo(({ navigation }) => {
 
       if (!result.success) {
         Alert.alert('Share Card', result.message);
+      } else {
+        await analyticsService.record('share');
       }
     } catch (error) {
       Alert.alert(
