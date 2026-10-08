@@ -13,8 +13,6 @@ export const SplashScreen = ({ navigation }) => {
   const transitionExecuted = useRef(false);
 
   useEffect(() => {
-    let timeoutId;
-
     const navigateTo = (route) => {
       if (!transitionExecuted.current) {
         transitionExecuted.current = true;
@@ -39,22 +37,11 @@ export const SplashScreen = ({ navigation }) => {
         if (__DEV__) {
           console.error('Startup initialization failed:', error);
         }
-        // Graceful fallback
-        navigateTo(ROUTES.MAIN_TABS);
+        // Do not bypass onboarding when startup storage fails.
+        navigateTo(ROUTES.ONBOARDING);
       }
     };
-
-    // Safety timeout of 3 seconds
-    timeoutId = setTimeout(() => {
-      if (__DEV__) {
-        console.warn('Startup initialization timed out. Forcing fallback navigation.');
-      }
-      navigateTo(ROUTES.MAIN_TABS);
-    }, 3000);
-
     initializeApp();
-
-    return () => clearTimeout(timeoutId);
   }, [navigation]);
 
   return (
