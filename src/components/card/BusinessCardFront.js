@@ -93,7 +93,12 @@ export const BusinessCardFront = React.memo(({ profile, onSaveContact, onShare }
 
         <ContactButtons profile={profile} templateConfig={templateConfig} accentColor={accentColor} />
         <SocialLinks profile={profile} templateConfig={templateConfig} accentColor={accentColor} />
-        <ActionButtons\n          templateConfig={templateConfig}\n          accentColor={accentColor}\n          onSaveContact={onSaveContact}\n          onShare={onShare}\n        />
+        <ActionButtons
+          templateConfig={templateConfig}
+          accentColor={accentColor}
+          onSaveContact={onSaveContact}
+          onShare={onShare}
+        />
       </ScrollView>
     </Animated.View>
   );
