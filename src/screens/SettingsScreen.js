@@ -9,95 +9,42 @@ import { PremiumSwitch } from '../components/common/PremiumSwitch';
 import { ROUTES } from '../navigation/routes';
 
 export const SettingsScreen = ({ navigation }) => {
-  const { colors } = useTheme();
+  const { colors, isDarkMode, setThemePreference } = useTheme();
+
+  const toggleTheme = async (enabled) => {
+    await setThemePreference(enabled ? 'dark' : 'light');
+  };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <PremiumHeader
-        title="Settings"
-        showBack={false}
-      />
+      <PremiumHeader title="Settings" showBack={false} />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-
-        {/* Appearance Section */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Appearance</Text>
           <PremiumCard variant="elevated" style={styles.card} contentStyle={styles.cardContent}>
             <SettingRow
-              icon="palette"
-              title="Theme"
-              subtitle="Dark Mode"
-              rightElement={<PremiumSwitch value={true} onValueChange={() => {}} />}
-            />
-            <SettingRow
-              icon="format-color-fill"
-              title="Accent Color"
-              subtitle="Default Blue"
-              onPress={() => {}}
-            />
-          </PremiumCard>
-        </View>
-
-        {/* Preferences Section */}
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Preferences</Text>
-          <PremiumCard variant="elevated" style={styles.card} contentStyle={styles.cardContent}>
-            <SettingRow
-              icon="translate"
-              title="Language"
-              subtitle="English (US)"
-              onPress={() => {}}
-            />
-            <SettingRow
-              icon="bell"
-              title="Notifications"
-              subtitle="Push, Email"
-              onPress={() => {}}
-            />
-            <SettingRow
-              icon="security"
-              title="Privacy & Security"
-              onPress={() => {}}
+              icon="theme-light-dark"
+              title="Dark Mode"
+              subtitle={isDarkMode ? 'Dark theme' : 'Light theme'}
+              rightElement={
+                <PremiumSwitch
+                  value={isDarkMode}
+                  onValueChange={toggleTheme}
+                  accessibilityLabel="Toggle dark mode"
+                />
+              }
             />
           </PremiumCard>
         </View>
 
-        {/* Support Section */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Support</Text>
           <PremiumCard variant="elevated" style={styles.card} contentStyle={styles.cardContent}>
             <SettingRow
-              icon="help-circle"
-              title="Help Center"
-              onPress={() => {}}
-            />
-            <SettingRow
-              icon="shield-check"
-              title="Privacy Policy"
-              onPress={() => {}}
-            />
-            <SettingRow
-              icon="file-document"
-              title="Terms of Service"
-              onPress={() => {}}
-            />
-            <SettingRow
               icon="information"
               title="About CardSphere"
               onPress={() => navigation.navigate(ROUTES.ABOUT)}
-            />
-          </PremiumCard>
-        </View>
-
-        {/* Account Actions Section */}
-        <View style={styles.section}>
-          <PremiumCard variant="elevated" style={styles.card} contentStyle={styles.cardContent}>
-             <SettingRow
-              icon="logout"
-              title="Log Out"
-              isDestructive
-              onPress={() => {}}
             />
           </PremiumCard>
         </View>
@@ -130,7 +77,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cardContent: {
-    padding: 0, // Let SettingRow handle padding
+    padding: 0,
   },
   versionContainer: {
     alignItems: 'center',
